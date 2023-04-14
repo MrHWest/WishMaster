@@ -4,21 +4,21 @@ import java.util.ArrayList;
 public class Wishlist {
     private int id;
     private String password;
-    private ArrayList<String> items;
+    private ArrayList<Item> items;
 
     public Wishlist(int id, String password){
         this.id = id;
         this.password = password;
-        items = new Arraylist<>();
+        items = new ArrayList<Item>();
     }
 
-    public ArrayList<String> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
-    public void addItem(String item){
+    public void addItem(Item item){
         items.add(item);
     }
-    public void removeItem(String item){
+    public void removeItem(Item item){
         items.remove(item);
     }
 }
