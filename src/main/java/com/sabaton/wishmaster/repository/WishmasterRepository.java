@@ -1,7 +1,9 @@
 package com.sabaton.wishmaster.repository;
 
+import com.sabaton.wishmaster.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import com.sabaton.wishmaster.model.Item;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,20 +14,24 @@ public class WishmasterRepository {
     @Value("${spring.datasource.url}")
     private String DB_URL;
 
+    @Value("${spring.datasource.username}")
+    private String DB_UID;
+
     @Value("${spring.datasource.password}")
     private String Password;
 
-    public List<item> getAll(){
-        List<item> itemList = new Arraylist<>();
+    public List<Item> getAll(){
+        List<Item> itemList = new ArrayList<>();
         try {
-            Connection connection = ConnectionManager.getConnection(DB_URL, Password);
+            Connection connection = ConnectionManager.getConnection(DB_URL, DB_UID, Password);
             Statement statement = connection.createStatement();
-            final String SQL_QUERY = "SELECT * FROM item";
+            final String SQL_QUERY = "SELECT * FROM wishmaster.item";
             ResultSet resultSet = statement.executeQuery(SQL_QUERY);
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String title = resultSet.getString(2);
-                Item item = new item(id, title, link);
+                String link = resultSet.getString(3);
+                Item item = new Item(id, title, link);
                 itemList.add(item);
                 System.out.println(item);
             }
@@ -39,7 +45,7 @@ public class WishmasterRepository {
 
     public void addItem(Item item){
         try{
-            Connection connection = ConnectionManager.getConnection(DB_URL, Password);
+            Connection connection = ConnectionManager.getConnection(DB_URL, DB_UID, Password);
             final String CREATE_QUERY = "INSERT INTO item(title, link) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
 
@@ -59,7 +65,7 @@ public class WishmasterRepository {
         final String UPDATE_QUERY = "UPDATE item SET title = ?, link = ? WHERE id = ?";
 
         try{
-            Connection connection = ConnectionManager.getConnection(DB_URL, Password);
+            Connection connection = ConnectionManager.getConnection(DB_URL, DB_UID, Password);
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
 
             String title = item.getTitle();

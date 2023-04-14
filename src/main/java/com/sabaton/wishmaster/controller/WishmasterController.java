@@ -16,18 +16,16 @@ public class WishmasterController {
     public WishmasterController(WishmasterRepository wishmasterRepository) {
         this.wishmasterRepository = wishmasterRepository;}
 
-    // TODO: change index to landing page (forside.html)
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index(Model model){
-        model.addAttribute("item", wishmasterRepository.getAll());
-        return "index";
+        return "forside";
     }
 
-    @GetMapping("/view")
-    public String viewList(@PathVariable("id") int id, Model model) {
+    @GetMapping("/view/{id}")
+    public String viewList(@PathVariable("id") String id, Model model) {
         // TODO: Using getAll() for now. Set this to select all items belonging to list of given id
         model.addAttribute("items", wishmasterRepository.getAll());
-        return "viewlist.html";
+        return "viewlist";
     }
 
     /*@GetMapping("//create"){
@@ -35,18 +33,18 @@ public class WishmasterController {
             return //create-side ;
         }*/
 
-    @PostMapping("/create")
-    public String createItem(@RequestParam("item-title") String newTitle,
-                                @RequestParam("product-link") String newLink){
+     @PostMapping("/create")
+     public String createItem(@RequestParam("item-title") String newTitle,
+                                 @RequestParam("product-link") String newLink){
 
-        // TODO: re-evaluate the need for item ID in model. Set ID=0 until then
-        Item newItem = new Item(0, newLink, newTitle);
+         // TODO: re-evaluate the need for item ID in model. Set ID=0 until then
+         Item newItem = new Item(0, newLink, newTitle);
 
 
-        wishmasterRepository.addItem(newItem);
+         wishmasterRepository.addItem(newItem);
 
-        //tilbage til itemlisten
-        return "redirect:/";
-    }
+         //tilbage til itemlisten
+         return "redirect:/";
+     }
 
 }
