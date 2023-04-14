@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class WishmasterRepository {
     @Value("${spring.datasource.url}")
     private String DB_URL;

@@ -1,7 +1,13 @@
 package com.sabaton.wishmaster.controller;
 
+import com.sabaton.wishmaster.model.Item;
 import com.sabaton.wishmaster.repository.WishmasterRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class WishmasterController {
@@ -10,10 +16,18 @@ public class WishmasterController {
     public WishmasterController(WishmasterRepository wishmasterRepository) {
         this.wishmasterRepository = wishmasterRepository;}
 
+    // TODO: change index to landing page (forside.html)
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("item", wishmasterRepository.getAll());
-        return index;
+        return "index";
+    }
+
+    @GetMapping("/view")
+    public String viewList(@PathVariable("id") int id, Model model) {
+        // TODO: Using getAll() for now. Set this to select all items belonging to list of given id
+        model.addAttribute(wishmasterRepository.getAll());
+        return "viewlist.html";
     }
 
     /*@GetMapping("//create"){
@@ -25,12 +39,11 @@ public class WishmasterController {
     public String createItem(@RequestParam("item-title") String newTitle,
                                 @RequestParam("product-link") String newLink){
 
-        Item newItem = new Item();
-        newItem.setLink(newLink);
-        newItem.setTitle(newTitle);
+        // TODO: re-evaluate the need for item ID in model. Set ID=0 until then
+        Item newItem = new Item(0, newLink, newTitle);
 
 
-        WishmasterRepository.addItem(newItem);
+        wishmasterRepository.addItem(newItem);
 
         //tilbage til itemlisten
         return "redirect:/";
