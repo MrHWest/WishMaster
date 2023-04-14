@@ -26,7 +26,7 @@ public class WishmasterController {
     @GetMapping("/view")
     public String viewList(@PathVariable("id") int id, Model model) {
         // TODO: Using getAll() for now. Set this to select all items belonging to list of given id
-        model.addAttribute(wishmasterRepository.getAll());
+        model.addAttribute("items", wishmasterRepository.getAll());
         return "viewlist.html";
     }
 
