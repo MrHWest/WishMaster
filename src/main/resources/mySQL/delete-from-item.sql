@@ -1,1 +1,1 @@
-DELETE FROM item WHERE -- id = user.input.id;
+DELETE FROM item WHERE id VALUES (?)

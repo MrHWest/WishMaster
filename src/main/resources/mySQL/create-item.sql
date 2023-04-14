@@ -1,1 +1,1 @@
-INSERT INTO item (title, link, wishlistID) VALUES -- ('New item titel', 'https://url.com', 'wishlistID');
+INSERT INTO item (title, link) VALUES (?, ?);

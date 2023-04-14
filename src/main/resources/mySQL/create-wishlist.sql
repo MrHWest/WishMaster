@@ -1,1 +1,1 @@
-INSERT INTO wishlist (password) VALUES ('user.input.password');
+INSERT INTO wishlist (password) VALUES (?);
