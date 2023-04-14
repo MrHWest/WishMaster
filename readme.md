@@ -11,3 +11,6 @@ The password associated with the user ID.
 ## Initial database setup
 Prior to running the application, the database needs to be set up.
 This can be achieved by running the SQL query in *src/main/resources/mySQL/create-db.sql*
+
+
+After the database has been set up, you can add dummy data by running the SQL query in *src/main/resources/mySQL/insert-dummy-data.sql* 
