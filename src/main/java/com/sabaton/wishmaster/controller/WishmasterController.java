@@ -16,10 +16,18 @@ public class WishmasterController {
     public WishmasterController(WishmasterRepository wishmasterRepository) {
         this.wishmasterRepository = wishmasterRepository;}
 
+    // TODO: change index to landing page (forside.html)
     @GetMapping("/")
     public String index(Model model){
         model.addAttribute("item", wishmasterRepository.getAll());
         return "index";
+    }
+
+    @GetMapping("/view")
+    public String viewList(@PathVariable("id") int id, Model model) {
+        // TODO: Using getAll() for now. Set this to select all items belonging to list of given id
+        model.addAttribute(wishmasterRepository.getAll());
+        return "viewlist.html";
     }
 
     /*@GetMapping("//create"){
