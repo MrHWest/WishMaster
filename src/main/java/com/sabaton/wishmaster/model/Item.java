@@ -5,10 +5,13 @@ public class Item {
     private String title;
     private String link;
 
-    public Item(int id, String title, String link) {
+    private int wishlistID;
+
+    public Item(int id, String title, String link, int wishlistID) {
         this.id = id;
         this.title = title;
         this.link = link;
+        this.wishlistID = wishlistID;
     }
 
     public int getId() {
