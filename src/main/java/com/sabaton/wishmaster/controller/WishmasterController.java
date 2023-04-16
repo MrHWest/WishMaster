@@ -37,4 +37,14 @@ public class WishmasterController{
 
         return "viewlist";
     }
+
+    @GetMapping("/edit/{id}")
+    String editList(@PathVariable("id") int wishlistId, Model model){
+
+        ArrayList<Item>items = wishmasterRepository.getItemsFromId(wishlistId);
+
+        model.addAttribute("items", items);
+
+        return "editlist";
+    }
 }
