@@ -24,7 +24,7 @@ public class WishmasterRepository {
     public ArrayList<Item> getAllItems() {
         System.out.println(DB_URL);
 
-        String SELECT_QUERY = "SELECT * FROM item";
+        String SELECT_QUERY = "SELECT * FROM wishmaster.item";
         ConnectionManager connectionManager = new ConnectionManager();
         try {
             Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
