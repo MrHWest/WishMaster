@@ -56,4 +56,32 @@ public class WishmasterRepository {
         }
     }
 
+    public ArrayList<Item> getItemsFromId(int wishlistId) {
+
+        String SELECT_QUERY = "SELECT * FROM wishmaster.item WHERE wishlistID = ?";
+        ConnectionManager connectionManager = new ConnectionManager();
+        try {
+            Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement statement =  connection.prepareStatement(SELECT_QUERY);
+            statement.setInt(1, wishlistId);
+            ResultSet result = statement.executeQuery();
+
+            ArrayList<Item> items = new ArrayList<>();
+
+            while(result.next()){
+                int id = result.getInt("id");
+                String title = result.getString("title");
+                String link = result.getString("link");
+                int wishlistID = result.getInt("wishlistID");
+                System.out.println(title + " " + link);
+                items.add(new Item(id, title, link, wishlistID));
+            }
+            return items;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ArrayList<Item> items = new ArrayList<>();
+            return items;
+        }
+    }
 }
