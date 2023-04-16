@@ -86,13 +86,15 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
-        <form action="create" method="post">
+        <form action="/edit" method="post">
+          <!--<input id="id-field" name="wishlistId" type="hidden" th:value="${param.id}">-->
+          <input id="id-field" name="wishlistId" type="hidden" value="2">
 
           <!-- Modal body -->
           <div class="modal-body">
             <div class="form-group" style="margin-bottom: 10px;">
-              <label for="title-field">Kodeord:</label>
-              <input id="title-field" class="form-control" name="product-title" placeholder="Indtast kodeord"
+              <label for="pwd-field">Kodeord:</label>
+              <input id="pwd-field" class="form-control" name="pwd" placeholder="Indtast kodeord"
                 type="password" />
             </div>
           </div>

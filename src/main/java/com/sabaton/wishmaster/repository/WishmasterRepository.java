@@ -1,5 +1,6 @@
 package com.sabaton.wishmaster.repository;
 
+import com.sabaton.wishmaster.model.Wishlist;
 import com.sabaton.wishmaster.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -82,6 +83,28 @@ public class WishmasterRepository {
             e.printStackTrace();
             ArrayList<Item> items = new ArrayList<>();
             return items;
+        }
+    }
+
+    public String getWishlistPassword(int wishlistId) {
+        String SELECT_QUERY = "SELECT wishmaster.wishlist.password FROM wishmaster.wishlist WHERE ID = ?";
+        ConnectionManager connectionManager = new ConnectionManager();
+        try {
+            Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement statement =  connection.prepareStatement(SELECT_QUERY);
+            statement.setInt(1, wishlistId);
+            ResultSet result = statement.executeQuery();
+
+            String password = "";
+
+            while(result.next()){
+                password = result.getString("password");
+            }
+            return password;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "";
         }
     }
 }
