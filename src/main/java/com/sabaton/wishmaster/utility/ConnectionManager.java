@@ -4,13 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//database connection singleton
 public class ConnectionManager {
     private static Connection connection = null;
 
+    //giv connection til database
     public static Connection getConnection(String db_url, String uid, String pwd){
-        // Singleton pattern used.
-        // Create new connection if none exists
+        //connection initialiseret?
         if (connection == null) {
+            //initialize connection
             try {
                 connection = DriverManager.getConnection(db_url, uid, pwd);
             } catch (SQLException e) {
