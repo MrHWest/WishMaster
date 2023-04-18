@@ -31,4 +31,8 @@ public class Item {
     public String getLink() {
         return this.link;
     }
+
+    public void setWishlistID(int wishlistID) {this.wishlistID = wishlistID;}
+    public int getWishlistID() {return this.wishlistID;}
+
 }

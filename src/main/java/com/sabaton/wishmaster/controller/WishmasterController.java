@@ -68,6 +68,23 @@ public class WishmasterController{
         return "editlist";
     }
 
+    @GetMapping("/createItem")
+    String addItem(@RequestParam("item-title") String newTitle,
+                   @RequestParam("item-link") String newLink){
+        Item newItem = new Item();
+        newItem.setTitle(newTitle);
+        newItem.setLink(newLink);
+
+        wishmasterRepository.addItem(newItem);
+
+        return "redirect:/";
+
+    }
+
+    
+
+
+
     @PostMapping("/edit")
     String verifyPassword(@RequestParam("pwd") String input_password,
                           @RequestParam("wishlistId") int id,

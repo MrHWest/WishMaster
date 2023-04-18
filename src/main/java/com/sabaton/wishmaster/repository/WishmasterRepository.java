@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import com.sabaton.wishmaster.model.Item;
 
+import javax.sound.midi.Soundbank;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SplittableRandom;
 
 @Repository
 public class WishmasterRepository {
@@ -54,6 +56,68 @@ public class WishmasterRepository {
             e.printStackTrace();
             ArrayList<Item> items = new ArrayList<>();
             return items;
+        }
+    }
+
+    public void addItem(Item item){
+
+        String ADDITEM_QUERY = "INSERT INTO wishmaster.item(title, link) WHERE wishmaster.item.wishlistID = ?";
+        ConnectionManager connectionManager = new ConnectionManager();
+        try{
+            Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement statement = connection.prepareStatement(ADDITEM_QUERY);
+            statement.setString(1, item.getTitle());
+            statement.setString(2, item.getLink());
+            statement.executeQuery();
+
+
+        } catch (SQLException e){
+            System.out.println("Kunne ikke oprette ny ønske");
+            e.printStackTrace();
+
+        }
+    }
+
+    public void updateItem(Item item){
+
+        String UPDATE_QUERY = "UPDATE item SET title = =, link = ? WHERE id = ?, wishlistID=?";
+        ConnectionManager connectionManager = new ConnectionManager();
+        try {
+            Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);
+
+            String title = item.getTitle();
+            String link = item.getLink();
+            int id = item.getId();
+            int wishlistID = item.getWishlistID();
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, link);
+            preparedStatement.setInt(3, id);
+            preparedStatement.setInt(4, wishlistID);
+
+            preparedStatement.executeUpdate();
+        } catch(SQLException e) {
+            System.out.println("Kunne ikke opdatere produkt");
+            e.printStackTrace();
+        }
+
+    }
+
+    public void deleteById(int id, int wishlistID){
+        String DELETE_QUERY = "DELETE FROM item WHERE id=?, wishlistID=?";
+        ConnectionManager connectionManager = new ConnectionManager();
+        try{
+            Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, wishlistID);
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e){
+            System.out.println("Kan ikke slette item");
+            e.printStackTrace();
         }
     }
 
