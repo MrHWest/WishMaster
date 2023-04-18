@@ -1,6 +1,7 @@
 package com.sabaton.wishmaster.controller;
 import com.sabaton.wishmaster.model.Item;
 import com.sabaton.wishmaster.repository.WishmasterRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +33,8 @@ public class WishmasterController{
         return "viewlist";
     }
 
-    @GetMapping("/view/{id}")
-    String viewList(@PathVariable("id") int wishlistId, Model model){
+    @GetMapping("/view")
+    String viewList(@RequestParam(name="id") int wishlistId, Model model){
 
         ArrayList<Item>items = wishmasterRepository.getItemsFromId(wishlistId);
 
@@ -42,8 +43,8 @@ public class WishmasterController{
         return "viewlist";
     }
 
-    @GetMapping("/edit/{id}")
-    String editList(@PathVariable("id") int wishlistId,
+    @GetMapping("/edit")
+    String editList(@RequestParam(name="id") int wishlistId,
                     Model model,
                     HttpSession session){
 
@@ -79,6 +80,12 @@ public class WishmasterController{
             session.setAttribute("pwd", input_password);
         }
 
-        return "redirect:/edit/" + id;
+        return "redirect:/edit?id=" + id;
+    }
+
+    @PostMapping("/createItem")
+    String createItem(@RequestParam("product-title") String title,
+                      @RequestParam("product-link") String link) {
+        return "";
     }
 }
