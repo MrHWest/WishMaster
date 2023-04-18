@@ -169,4 +169,30 @@ public class WishmasterRepository {
             return "";
         }
     }
+
+    // returns the ID of the generated wishlist
+    public int addWishlist(String password) {
+        ConnectionManager connectionManager = new ConnectionManager();
+        String sql = "INSERT INTO wishmaster.wishlist (password) VALUES (?)";
+        int id = -1;
+        try {
+            Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, password);
+
+            statement.executeUpdate();
+
+            ResultSet generatedIDs = statement.getGeneratedKeys();
+            generatedIDs.next();
+            id = generatedIDs.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("STATE: " + e.getSQLState());
+            System.out.println("MSG: " + e.getMessage());
+        }
+
+        return id;
+    }
 }
