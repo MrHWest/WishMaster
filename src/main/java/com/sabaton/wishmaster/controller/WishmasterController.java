@@ -1,6 +1,7 @@
 package com.sabaton.wishmaster.controller;
 import com.sabaton.wishmaster.model.Item;
 import com.sabaton.wishmaster.repository.WishmasterRepository;
+import com.sabaton.wishmaster.utility.ConnectionManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -99,9 +100,20 @@ public class WishmasterController{
         return "redirect:/edit?id=" + id;
     }
 
-    @PostMapping("/createItem")
-    String createItem(@RequestParam("product-title") String title,
-                      @RequestParam("product-link") String link) {
-        return "";
+    @GetMapping("/newWishlist")
+    String newWishlist() {
+        return "newWishlist";
+    }
+
+    @PostMapping("/createWishlist")
+    String createWishlist(@RequestParam("password") String password,
+                          HttpSession session) {
+        int id = wishmasterRepository.addWishlist(password);
+
+        // Add wishlist value to session, allowing for editing
+        session.setAttribute("id", id);
+        session.setAttribute("pwd", password);
+
+        return "redirect:/edit?id=" + id;
     }
 }
