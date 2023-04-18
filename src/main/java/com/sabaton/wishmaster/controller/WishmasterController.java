@@ -68,12 +68,11 @@ public class WishmasterController{
         return "editlist";
     }
 
+    // TODO: Add wishlist ID
     @GetMapping("/createItem")
     String addItem(@RequestParam("item-title") String newTitle,
                    @RequestParam("item-link") String newLink){
-        Item newItem = new Item();
-        newItem.setTitle(newTitle);
-        newItem.setLink(newLink);
+        Item newItem = new Item(0, newTitle, newLink,0);
 
         wishmasterRepository.addItem(newItem);
 
