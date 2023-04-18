@@ -53,12 +53,12 @@ public class WishmasterController{
         if(session.getAttribute("id") != null && session.getAttribute("pwd") != null) {
             if(!(session.getAttribute("id").equals(wishlistId) && session.getAttribute("pwd").equals(password))) {
                 // If user password is invalid:
-                return "redirect:/view/" + wishlistId;
+                return "redirect:/view?id=" + wishlistId;
             }
         }
         else {
             // Session is null
-            return "redirect:/view/" + wishlistId;
+            return "redirect:/view?id=" + wishlistId;
         }
 
         ArrayList<Item>items = wishmasterRepository.getItemsFromId(wishlistId);
@@ -85,7 +85,32 @@ public class WishmasterController{
 
     @PostMapping("/createItem")
     String createItem(@RequestParam("product-title") String title,
-                      @RequestParam("product-link") String link) {
-        return "";
+                      @RequestParam("product-link") String link,
+                      @RequestParam("list-id") int wishlistId,
+                      HttpSession session) {
+
+        // Ensure that user has entered correct password
+        String password = wishmasterRepository.getWishlistPassword(wishlistId);
+        if(session.getAttribute("id") != null && session.getAttribute("pwd") != null) {
+            if(!(session.getAttribute("id").equals(wishlistId) && session.getAttribute("pwd").equals(password))) {
+                // If user password is invalid:
+                return "redirect:/view?id=" + wishlistId;
+            }
+        }
+        else {
+            // Session is null
+            return "redirect:/view?id=" + wishlistId;
+        }
+
+        // Prepend http:// to link if needed
+        if(!link.substring(0,3).equals("http")) {
+            link = "http://" + link;
+        }
+
+        // Add item
+        wishmasterRepository.createItem(title, link, wishlistId);
+
+        // Redirect to edit view
+        return "redirect:/edit?id=" + wishlistId;
     }
 }

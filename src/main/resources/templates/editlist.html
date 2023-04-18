@@ -105,6 +105,7 @@
         </div>
 
         <form action="/createItem" method="post">
+          <input type="hidden" id="list-id" name="list-id" th:value="${param.id}" />
 
           <!-- Modal body -->
           <div class="modal-body">

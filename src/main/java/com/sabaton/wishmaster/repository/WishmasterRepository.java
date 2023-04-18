@@ -107,4 +107,20 @@ public class WishmasterRepository {
             return "";
         }
     }
+
+    public void createItem(String title, String link, int wishlistId) {
+        String INSERT_QUERY = "INSERT INTO wishmaster.item (title, link, wishlistID) VALUES (?, ?, ?)";
+        ConnectionManager connectionManager = new ConnectionManager();
+        try {
+            Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
+            PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);
+            statement.setString(1, title);
+            statement.setString(2, link);
+            statement.setInt(3, wishlistId);
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
