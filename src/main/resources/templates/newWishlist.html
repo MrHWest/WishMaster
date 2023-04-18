@@ -55,39 +55,6 @@
     </div>
   </div>
 
-  <!-- Password Modal -->
-  <div class="modal fade" id="modalPassword">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Indtast kodeord</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-
-        <form action="/edit" method="post">
-          <input id="id-field" name="wishlistId" type="hidden" th:value="${param.id}">
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            <div class="form-group" style="margin-bottom: 10px;">
-              <label for="pwd-field">Kodeord:</label>
-              <input id="pwd-field" class="form-control" name="pwd" placeholder="Indtast kodeord"
-                type="password" />
-            </div>
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <input type="submit" class="btn btn-primary" value="Redigér liste" />
-          </div>
-
-        </form>
-
-      </div>
-    </div>
-  </div>
 </body>
 
 </html>
