@@ -9,6 +9,6 @@ CREATE TABLE wishmaster.item (
 	`id` INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(40) NOT NULL,
     `link` VARCHAR(255) NULL,
-    `wishlistID` INT NOT NULL,
-    FOREIGN KEY (`wishlistID`) REFERENCES wishlist(id));
+    `wishlist_id` INT NOT NULL,
+    FOREIGN KEY (`wishlist_id`) REFERENCES wishlist(id));
     

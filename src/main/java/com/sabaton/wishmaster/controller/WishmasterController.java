@@ -30,8 +30,14 @@ public class WishmasterController{
 
         model.addAttribute("items", items);
 
+        return "forside";
+    }
+
+    @GetMapping("/emptyview")
+    String emptyList(){
         return "viewlist";
     }
+
 
     @GetMapping("/view")
     String viewList(@RequestParam(name="id") int wishlistId, Model model){
@@ -64,24 +70,23 @@ public class WishmasterController{
         ArrayList<Item>items = wishmasterRepository.getItemsFromId(wishlistId);
 
         model.addAttribute("items", items);
+        model.addAttribute("wishlistid", wishlistId);
 
         return "editlist";
     }
 
-    @GetMapping("/createItem")
-    String addItem(@RequestParam("item-title") String newTitle,
-                   @RequestParam("item-link") String newLink){
-        Item newItem = new Item();
-        newItem.setTitle(newTitle);
-        newItem.setLink(newLink);
-
-        wishmasterRepository.addItem(newItem);
+    @PostMapping("/createItem")
+    String addItem(@RequestParam("product-title") String newTitle,
+                   @RequestParam("product-link") String newLink,
+                   @RequestParam("product-wishlistID") int newWishlistID){
+        System.out.println("hej");
+        wishmasterRepository.addItem(newTitle, newLink, newWishlistID);
 
         return "redirect:/";
 
     }
 
-    
+
 
 
 
@@ -100,9 +105,9 @@ public class WishmasterController{
         return "redirect:/edit?id=" + id;
     }
 
-    @PostMapping("/createItem")
+    /*@PostMapping("/createItem")
     String createItem(@RequestParam("product-title") String title,
                       @RequestParam("product-link") String link) {
         return "";
-    }
+    }*/
 }

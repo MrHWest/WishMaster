@@ -40,7 +40,7 @@ public class WishmasterRepository {
                 int id = result.getInt("id");
                 String title = result.getString("title");
                 String link = result.getString("link");
-                int wishlistID = result.getInt("wishlistID");
+                int wishlistID = result.getInt("wishlist_id");
                 System.out.println(title + " " + link);
                 items.add(new Item(id, title, link, wishlistID));
             }
@@ -59,16 +59,17 @@ public class WishmasterRepository {
         }
     }
 
-    public void addItem(Item item){
+    public void addItem(String title, String link, int wishlistID){
 
-        String ADDITEM_QUERY = "INSERT INTO wishmaster.item(title, link) WHERE wishmaster.item.wishlistID = ?";
+        String ADDITEM_QUERY = "INSERT INTO wishmaster.item(title, link, wishlist_id) VALUES (?, ?, ?) ";
         ConnectionManager connectionManager = new ConnectionManager();
         try{
             Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
             PreparedStatement statement = connection.prepareStatement(ADDITEM_QUERY);
-            statement.setString(1, item.getTitle());
-            statement.setString(2, item.getLink());
-            statement.executeQuery();
+            statement.setString(1, title);
+            statement.setString(2, link);
+            statement.setInt(3, wishlistID);
+            statement.execute();
 
 
         } catch (SQLException e){
@@ -80,7 +81,7 @@ public class WishmasterRepository {
 
     public void updateItem(Item item){
 
-        String UPDATE_QUERY = "UPDATE item SET title = =, link = ? WHERE id = ?, wishlistID=?";
+        String UPDATE_QUERY = "UPDATE item SET title = ?, link = ? WHERE id = ?";
         ConnectionManager connectionManager = new ConnectionManager();
         try {
             Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
@@ -89,11 +90,9 @@ public class WishmasterRepository {
             String title = item.getTitle();
             String link = item.getLink();
             int id = item.getId();
-            int wishlistID = item.getWishlistID();
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, link);
             preparedStatement.setInt(3, id);
-            preparedStatement.setInt(4, wishlistID);
 
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
@@ -103,15 +102,14 @@ public class WishmasterRepository {
 
     }
 
-    public void deleteById(int id, int wishlistID){
-        String DELETE_QUERY = "DELETE FROM item WHERE id=?, wishlistID=?";
+    public void deleteById(int id){
+        String DELETE_QUERY = "DELETE FROM item WHERE id=?";
         ConnectionManager connectionManager = new ConnectionManager();
         try{
             Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
 
             preparedStatement.setInt(1, id);
-            preparedStatement.setInt(1, wishlistID);
             preparedStatement.executeUpdate();
 
 
@@ -123,7 +121,7 @@ public class WishmasterRepository {
 
     public ArrayList<Item> getItemsFromId(int wishlistId) {
 
-        String SELECT_QUERY = "SELECT * FROM wishmaster.item WHERE wishlistID = ?";
+        String SELECT_QUERY = "SELECT * FROM wishmaster.item WHERE wishlist_id = ?";
         ConnectionManager connectionManager = new ConnectionManager();
         try {
             Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
@@ -137,7 +135,7 @@ public class WishmasterRepository {
                 int id = result.getInt("id");
                 String title = result.getString("title");
                 String link = result.getString("link");
-                int wishlistID = result.getInt("wishlistID");
+                int wishlistID = result.getInt("wishlist_id");
                 System.out.println(title + " " + link);
                 items.add(new Item(id, title, link, wishlistID));
             }
