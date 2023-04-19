@@ -81,7 +81,7 @@ public class WishmasterRepository {
 
     public void updateItem(Item item){
 
-        String UPDATE_QUERY = "UPDATE item SET title = ?, link = ? WHERE id = ?";
+        String UPDATE_QUERY = "UPDATE wishmaster.item SET title = ?, link = ? WHERE id = ?";
         ConnectionManager connectionManager = new ConnectionManager();
         try {
             Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);

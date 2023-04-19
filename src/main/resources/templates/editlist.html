@@ -82,7 +82,8 @@
                 <div style="float:right">
 
                 <a type="button" class="btn btn-success" th:href="${item.getLink()}" target="_blank">Besøg side</a>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                <!--<button type="button" class="btn btn-warning" th:attr="onclick='editModalOpen(${item.getId()}, ${item.getTitle()}, ${item.getLink()})'" data-bs-toggle="modal"-->
+                <button type="button" class="btn btn-warning" th:data-id="${item.getId()}" th:data-title="${item.getTitle()}" th:data-link="${item.getLink()}" onclick="editModalOpen(this)" data-bs-toggle="modal"
                   data-bs-target="#modalEdit">Redigér</button>
 
                   <form style="float:right; margin-left: 5px" action="/delete" method="post">
@@ -93,51 +94,53 @@
 
                 </div>
               </div>
-                            <!-- Edit Modal -->
-                <div class="modal fade" id="modalEdit" style="">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-
-                      <!-- Modal Header -->
-                      <div class="modal-header">
-                        <h4 class="modal-title">Redigér</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-
-                      <form action="/updateItem" method="post">
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                          <div class="form-group" style="margin-bottom: 10px;">
-                            <label for="title-update">Titel:</label>
-                            <input id="title-update" class="form-control" name="title" th:value="${item.getTitle()}"
-                                   type="text" />
-                          </div>
-                          <div class="form-group">
-                            <label for="link-update">Link:</label>
-                            <input id="link-update" class="form-control" name="link" th:value="${item.getLink()}" type="text" />
-                            <input type="hidden" name="id" id="updateid" th:value="${item.getId()}">
-                            <input type="hidden" name="wishlistID" id="updateItem-wishlistid" th:value="${item.wishlistID}">
-
-                          </div>
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                          <input type="submit" class="btn btn-primary" value="Opdater" />
-                        </div>
-
-                      </form>
-
-                    </div>
-                  </div>
-                </div>
             </span>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="modalEdit" style="">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Redigér</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <form action="/updateItem" method="post">
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label for="title-update">Titel:</label>
+              <input id="title-update" class="form-control" name="title"
+                     type="text" />
+            </div>
+            <div class="form-group">
+              <label for="link-update">Link:</label>
+              <input id="link-update" class="form-control" name="link" type="text" />
+              <input type="hidden" name="id" id="updateid">
+              <input type="hidden" name="wishlistID" id="updateItem-wishlistid" th:value="${param.id}">
+
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Opdater" />
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <!-- EDIT MODAL END -->
 
   <!-- Add Modal -->
   <div class="modal fade" id="modalAdd">
@@ -181,6 +184,18 @@
     let url = window.location.href.replace("edit", "view");
     url = url.substring(0, url.indexOf("&"));
     document.getElementById("view-link").innerHTML = "<a href='" + url + "'><b>" + url + "</b></a>";
+
+    // Function to get executed when EDIT MODAL is opened
+   // function editModalOpen(id, title, link) {
+   //   document.getElementById("updateid").value = id;
+   //   document.getElementById("title-update").value = title;
+   //   document.getElementById("link-update").value = link;
+   // }
+    function editModalOpen(button) {
+      document.getElementById("updateid").value = button.getAttribute("data-id");
+      document.getElementById("title-update").value = button.getAttribute("data-title");
+      document.getElementById("link-update").value = button.getAttribute("data-link");
+    }
   </script>
 </body>
 
