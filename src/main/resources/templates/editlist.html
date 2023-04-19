@@ -80,42 +80,65 @@
                     <p class="mb-0 opacity-50" th:text="${item.link}">
                 </div>
                 <div style="float:right">
-                <button type="button" class="btn btn-success">Besøg side</button>
+
+                <a type="button" class="btn btn-success" th:href="${item.getLink()}" target="_blank">Besøg side</a>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                   data-bs-target="#modalEdit">Redigér</button>
-                <button type="button" class="btn btn-danger">Slet</button>
+
+                  <form style="float:right; margin-left: 5px" action="/delete" method="post">
+                    <input type="hidden" name="id" id="id" th:value="${item.getId()}">
+                    <input type="hidden" name="item-wishlistid" id="item-wishlistid" th:value="${item.wishlistID}">
+                <button type="submit" class="btn btn-danger">Slet</button>
+                  </form>
+
                 </div>
               </div>
+                            <!-- Edit Modal -->
+                <div class="modal fade" id="modalEdit" style="">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Redigér</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+
+                      <form action="/updateItem" method="post">
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                          <div class="form-group" style="margin-bottom: 10px;">
+                            <label for="title-update">Titel:</label>
+                            <input id="title-update" class="form-control" name="title" th:value="${item.getTitle()}"
+                                   type="text" />
+                          </div>
+                          <div class="form-group">
+                            <label for="link-update">Link:</label>
+                            <input id="link-update" class="form-control" name="link" th:value="${item.getLink()}" type="text" />
+                            <input type="hidden" name="id" id="updateid" th:value="${item.getId()}">
+                            <input type="hidden" name="wishlistID" id="updateItem-wishlistid" th:value="${item.wishlistID}">
+
+                          </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <input type="submit" class="btn btn-primary" value="Opdater" />
+                        </div>
+
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
             </span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Edit Modal -->
-  <div class="modal fade" id="modalEdit">
-    <div class="modal-dialog">
-      <div class="modal-content">
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Redigér</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          Dette er for redigering.
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        </div>
-
-      </div>
-    </div>
-  </div>
   <!-- Add Modal -->
   <div class="modal fade" id="modalAdd">
     <div class="modal-dialog">

@@ -35,4 +35,13 @@ public class Item {
     public void setWishlistID(int wishlistID) {this.wishlistID = wishlistID;}
     public int getWishlistID() {return this.wishlistID;}
 
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", wishlistID=" + wishlistID +
+                '}';
+    }
 }
