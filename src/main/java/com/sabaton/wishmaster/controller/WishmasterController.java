@@ -82,7 +82,11 @@ public class WishmasterController{
     String addItem(@RequestParam("product-title") String newTitle,
                    @RequestParam("product-link") String newLink,
                    @RequestParam("product-wishlistID") int newWishlistID){
-        System.out.println("hej");
+
+        // Prepend "http://" if missing
+        if(!newLink.substring(0,3).equals("http")) {
+            newLink = "http://" + newLink;
+        }
         wishmasterRepository.addItem(newTitle, newLink, newWishlistID);
 
 
