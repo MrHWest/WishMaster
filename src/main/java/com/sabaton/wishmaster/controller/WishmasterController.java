@@ -84,7 +84,7 @@ public class WishmasterController{
                    @RequestParam("product-wishlistID") int newWishlistID){
 
         // Prepend "http://" if missing
-        if(!newLink.substring(0,3).equals("http")) {
+        if(!newLink.substring(0,4).equals("http")) {
             newLink = "http://" + newLink;
         }
         wishmasterRepository.addItem(newTitle, newLink, newWishlistID);
