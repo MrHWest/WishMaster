@@ -85,7 +85,7 @@ public class WishmasterController{
         wishmasterRepository.addItem(newTitle, newLink, newWishlistID);
 
 
-        return "redirect:/";
+        return "redirect:/edit?id=" + newWishlistID;
 
     }
 
