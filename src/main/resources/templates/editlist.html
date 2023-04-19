@@ -40,9 +40,25 @@
   <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
 
     <div class="container">
+      <div class="row" th:if="${param.newList}">
+        <div class="col">
+          <div class="alert alert-success" role="alert">
+            <b>Tillykke!</b>
+            <p>
+              Din nye liste er blevet oprettet.<br />
+              Sørg for at gemme følgende link:
+            </p>
+            <p id="view-link">
+            </p>
+            <p>
+              Den kan du bruge til at dele ønskelisten med andre.
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col">
-          <h1>Ønskeliste</h1>
+          <h1>Redigér ønskeliste</h1>
         </div>
       </div>
 
@@ -137,6 +153,12 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    let url = window.location.href.replace("edit", "view");
+    url = url.substring(0, url.indexOf("&"));
+    document.getElementById("view-link").innerHTML = "<a href='" + url + "'><b>" + url + "</b>";
+  </script>
 </body>
 
 </html>

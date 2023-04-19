@@ -131,7 +131,7 @@ public class WishmasterController{
         session.setAttribute("id", id);
         session.setAttribute("pwd", password);
 
-        return "redirect:/edit?id=" + id;
+        return "redirect:/edit?id=" + id + "&newList=true";
     }
 
 }
