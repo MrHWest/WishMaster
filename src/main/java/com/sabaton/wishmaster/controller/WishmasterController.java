@@ -116,6 +116,13 @@ public class WishmasterController{
         return "redirect:/edit?id=" + id;
     }
 
+    @GetMapping("/delete{id}")
+    public String deleteItem(@PathVariable("id") int id){
+        wishmasterRepository.deleteById(id);
+
+        return "redirect:/";
+    }
+
 
     @GetMapping("/newWishlist")
     String newWishlist() {

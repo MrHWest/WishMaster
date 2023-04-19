@@ -40,7 +40,7 @@ public class WishmasterRepository {
                 int id = result.getInt("id");
                 String title = result.getString("title");
                 String link = result.getString("link");
-                int wishlistID = result.getInt("wishlist_id");
+                int wishlistID = result.getInt("wishlistID");
                 System.out.println(title + " " + link);
                 items.add(new Item(id, title, link, wishlistID));
             }
@@ -121,7 +121,7 @@ public class WishmasterRepository {
 
     public ArrayList<Item> getItemsFromId(int wishlistId) {
 
-        String SELECT_QUERY = "SELECT * FROM wishmaster.item WHERE wishlistID = ?";
+        String SELECT_QUERY = "SELECT * FROM wishmaster.item WHERE wishlistID=?";
         ConnectionManager connectionManager = new ConnectionManager();
         try {
             Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);
