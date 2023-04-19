@@ -103,7 +103,7 @@ public class WishmasterRepository {
     }
 
     public void deleteById(int id){
-        String DELETE_QUERY = "DELETE FROM item WHERE id=?";
+        String DELETE_QUERY = "DELETE FROM wishmaster.item WHERE id=?";
         ConnectionManager connectionManager = new ConnectionManager();
         try{
             Connection connection = connectionManager.getConnection(DB_URL, UID, PWD);

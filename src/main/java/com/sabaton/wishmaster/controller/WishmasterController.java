@@ -58,14 +58,15 @@ public class WishmasterController{
         // Ensure that user has entered correct password
         String password = wishmasterRepository.getWishlistPassword(wishlistId);
         if(session.getAttribute("id") != null && session.getAttribute("pwd") != null) {
+            // TODO: reconsider the need for below if-statement
             if(!(session.getAttribute("id").equals(wishlistId) && session.getAttribute("pwd").equals(password))) {
                 // If user password is invalid:
-                return "redirect:/view/" + wishlistId;
+                return "redirect:/view?id=" + wishlistId + "&wrongPwd=true";
             }
         }
         else {
             // Session is null
-            return "redirect:/view/" + wishlistId;
+            return "redirect:/view?id=" + wishlistId;
         }
 
         ArrayList<Item>items = wishmasterRepository.getItemsFromId(wishlistId);
@@ -103,6 +104,9 @@ public class WishmasterController{
         if(db_password.equals(input_password)) {
             session.setAttribute("id", id);
             session.setAttribute("pwd", input_password);
+        }
+        else {
+            return "redirect:/view?id=" + id + "&wrongPwd=true";
         }
 
         return "redirect:/edit?id=" + id;
