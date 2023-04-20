@@ -78,6 +78,13 @@
               </div>
             </span>
           </div>
+
+          <!-- SHOWN WHEN LIST IS EMPTY -->
+          <div class="alert alert-light" role="alert" th:if="${items.isEmpty()}">
+            Denne ønskeliste er tom :(<br/><br/>
+            Tilføj noget til din ønskeliste ved at trykke "<b>Nyt produkt</b>"
+          </div>
+          <!-- EMPTY LIST ALERT END -->
         </div>
       </div>
     </div>
