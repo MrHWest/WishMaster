@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.sabaton</groupId>
     <artifactId>WishMaster</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>WishMaster</name>
     <description>WishMaster</description>
     <properties>
