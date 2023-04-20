@@ -1,5 +1,5 @@
 -- Insert a row into the wishlist table with a password
-INSERT INTO wishlist (password) VALUES ('password123');
+INSERT INTO wishmaster.wishlist (password) VALUES ('password123');
 
 -- Get the ID of the wishlist row that was just inserted
 SET @wishlistID = LAST_INSERT_ID();
@@ -9,7 +9,7 @@ INSERT INTO wishmaster.item (Title, link, wishlist_id) VALUES ('APPLE AIRPODS 2N
 INSERT INTO wishmaster.item (Title, link, wishlist_id) VALUES ('Samsung TV', 'https://www.power.dk/tv-og-lyd/tv/samsung-60-4k-led-tv-ue60bu8075uxxc/p-1327555/', @wishlistID);
 
 -- Insert a row into the wishlist table with a password
-INSERT INTO wishlist (password) VALUES ('password456');
+INSERT INTO wishmaster.wishlist (password) VALUES ('password456');
 
 -- Get the ID of the wishlist row that was just inserted
 SET @wishlistID = LAST_INSERT_ID();
