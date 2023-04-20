@@ -185,12 +185,6 @@
     url = url.substring(0, url.indexOf("&"));
     document.getElementById("view-link").innerHTML = "<a href='" + url + "'><b>" + url + "</b></a>";
 
-    // Function to get executed when EDIT MODAL is opened
-   // function editModalOpen(id, title, link) {
-   //   document.getElementById("updateid").value = id;
-   //   document.getElementById("title-update").value = title;
-   //   document.getElementById("link-update").value = link;
-   // }
     function editModalOpen(button) {
       document.getElementById("updateid").value = button.getAttribute("data-id");
       document.getElementById("title-update").value = button.getAttribute("data-title");
