@@ -17,21 +17,23 @@
 
     <div class="container">
       <div class="row">
-        <div class="col">
-          <h1>Ny ønskeliste</h1>
+        <div class="col-sm">
         </div>
       </div>
 
       <div class="row">
-        <div class="col">
+        <div class="col"></div>
+        <div class="col-7">
+          <h1>Ny ønskeliste</h1><br />
           <form action="/createWishlist" method="post">
             <label for="password-field">Kodeord:</label>
             <input id="password-field" class="form-control" name="password" placeholder="Indtast kodeord"
                    type="password" />
 
-            <input type="submit" class="btn btn-primary" value="Tilføj" />
+            <input type="submit" class="btn btn-primary" style="margin-top:10px;" value="Tilføj" />
           </form>
         </div>
+        <div class="col"></div>
       </div>
     </div>
   </div>
